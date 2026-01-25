@@ -18,6 +18,7 @@ classifiers = [
 license = { file = "LICENSE" }
 dependencies = [
     "torch>=2.1",
+    "numpy>=2.0.2",
     "h5py>=3",
     "requests>=2",
     "scikit-learn>=1.5",
@@ -26,6 +27,7 @@ dependencies = [
     "openml==0.15.1",
     "tabicl",
     "ticl @ git+https://github.com/microsoft/ticl.git@main",
+    "tabpfn-v1-prior @ git+https://github.com/automl/tabpfn-v1-prior.git",
     "interpret",
     "numba",
     "mlflow"
