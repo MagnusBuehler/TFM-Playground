@@ -34,3 +34,31 @@ def make_global_bucket_edges(filename, n_buckets=100, device=get_default_device(
     ys_tensor = torch.tensor(ys_concat, dtype=torch.float32, device=device)
     global_bucket_edges = get_bucket_limits(n_buckets, ys=ys_tensor).to(device)
     return global_bucket_edges
+
+
+def make_global_bucket_edges_from_prior(prior, n_buckets=100, n_batches=50, device=get_default_device()):
+    """Compute global bucket edges by sampling batches from a prior data loader.
+
+    Normalizes each dataset's targets (mean/std) before pooling, matching the
+    same per-dataset normalization applied during training.
+
+    Args:
+        prior: any iterable yielding dicts with a 'y' key (batch_size, seq_len)
+        n_buckets (int): number of quantile buckets
+        n_batches (int): how many batches to sample for computing the edges
+        device: target device for the returned bucket edges
+    Returns:
+        Tensor of shape (n_buckets + 1,) with bucket boundary values
+    """
+    ys = []
+    for i, batch in enumerate(prior):
+        if i >= n_batches:
+            break
+        y = batch["y"].float().cpu()
+        mean = y.mean(dim=1, keepdim=True)
+        std = y.std(dim=1, keepdim=True) + 1e-8
+        ys.append(((y - mean) / std).ravel())
+    ys_concat = torch.cat(ys)
+    if ys_concat.numel() < n_buckets:
+        raise ValueError(f"Too few target samples ({ys_concat.numel()}) to compute {n_buckets} buckets.")
+    return get_bucket_limits(n_buckets, ys=ys_concat).to(device)

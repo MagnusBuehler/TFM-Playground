@@ -1,0 +1,93 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "pretrain_classification.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pretrain_classification.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "pretrain_regression.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pretrain_regression.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "compare_regression.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/compare_regression.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--epochs",
+                "100",
+                "--steps",
+                "50",
+                "--eval_every",
+                "10"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "ablations/01_linear.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/ablations/01_linear.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "ablations/02_nonlinear.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/ablations/02_nonlinear.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "ablations/03_heteroscedastic.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/ablations/03_heteroscedastic.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "ablations/04_multivariate.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/ablations/04_multivariate.py",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "python": "${workspaceFolder}/.venv/bin/python3",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        }
+    ]
+}

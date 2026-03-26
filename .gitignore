@@ -8,6 +8,9 @@ tfmplayground_jobs/
 *.pth
 *.h5
 
+*.csv
+*.png
+
 __pycache__/
 *.py[cod]
 .ruff_cache/

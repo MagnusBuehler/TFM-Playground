@@ -8,6 +8,7 @@ import schedulefree
 import os
 
 from tfmplayground.callbacks import Callback
+from tfmplayground.mdn import MDNCriterion
 from tfmplayground.model import NanoTabPFNModel
 from tfmplayground.utils import get_default_device
 
@@ -47,6 +48,7 @@ def train(model: NanoTabPFNModel, prior: DataLoader, criterion: nn.CrossEntropyL
     if ckpt:
         optimizer.load_state_dict(ckpt['optimizer'])
     classification_task = isinstance(criterion, nn.CrossEntropyLoss)
+    mdn_task = isinstance(criterion, MDNCriterion)
     regression_task = not classification_task
 
     assert prior.num_steps % accumulate_gradients == 0, 'num_steps must be divisible by accumulate_gradients'
@@ -109,7 +111,7 @@ def train(model: NanoTabPFNModel, prior: DataLoader, criterion: nn.CrossEntropyL
             torch.save(training_state, work_dir+'/latest_checkpoint.pth')
 
             for callback in callbacks:
-                if type(criterion) is FullSupportBarDistribution:
+                if not classification_task and not mdn_task:
                     callback.on_epoch_end(epoch, end_time - epoch_start_time, mean_loss, (model.module if multi_gpu else model), dist=criterion)
                 else:
                     callback.on_epoch_end(epoch, end_time - epoch_start_time, mean_loss, (model.module if multi_gpu else model))
